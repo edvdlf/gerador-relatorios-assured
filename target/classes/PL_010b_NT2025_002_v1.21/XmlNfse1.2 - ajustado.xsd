@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns:ds="http://www.w3.org/2000/09/xmldsig#" 
+           targetNamespace="http://www.sped.fazenda.gov.br/nfse" 
+           xmlns="http://www.sped.fazenda.gov.br/nfse" 
+           attributeFormDefault="unqualified" 
+           elementFormDefault="qualified">
+
+<xs:element name="XmlNfse">
+	<xs:sequence>
+		<xs:element nillable="true" name="Id" type="TStr50">
+			<xs:annotation>
+				<xs:documentation>Id da nota fiscal</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="Numero" type="TStr35NonEmpty" minOccurs="1">
+			<xs:annotation>
+				<xs:documentation>Número da nota fiscal</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="CodigoVerificacao" type="TStr50" minOccurs="1">
+			<xs:annotation>
+				<xs:documentation>Código de verificação da nota fiscal</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="DtEmissao" type="MidasDateTimeNonEmpty" minOccurs="1">
+			<xs:annotation>
+				<xs:documentation>Data de emissão da nota fiscal</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="NumeroNFSeSubstituida" type="TStr20">
+			<xs:annotation>
+				<xs:documentation>Número da nota fiscal que foi substituída pela que está sendo informada</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="Serie" type="TStr10">
+			<xs:annotation>
+				<xs:documentation>Série da nota fiscal</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="DtPrestacaoServico" type="MidasDateTime">
+			<xs:annotation>
+				<xs:documentation>Data da prestação de serviço</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="Exigibilidade" type="XmlNfseExigibilidade">
+			<xs:annotation>
+				<xs:documentation>Para as prefeituras que utilizam do padrão do www.govdigital.com.br esse elemento informa o tipo de tributação</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="DadosTomador">
+			<xs:annotation>
+				<xs:documentation>Dados do tomador de serviço</xs:documentation>
+			</xs:annotation>
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element nillable="true" name="Cpf" type="TCpf">
+						<xs:annotation>
+							<xs:documentation>CPF do tomador (se pessoa física)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="Cnpj" type="TCnpj">
+						<xs:annotation>
+							<xs:documentation>CNPJ do tomador (se pessoa jurídica)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="InscricaoMunicipal" type="TStr20">
+						<xs:annotation>
+							<xs:documentation>Inscrição Municipal do tomador</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="InscricaoEstadual" type="TStr20">
+						<xs:annotation>
+							<xs:documentation>Inscrição Estadual do tomador</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="Nome" type="TStr255">
+						<xs:annotation>
+							<xs:documentation>Nome do tomador</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="RazaoSocial" type="TStr255" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Razão Social do tomador</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="NomeFantasia" type="TStr65">
+						<xs:annotation>
+							<xs:documentation>Nome Fantasia do tomador</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="Endereco">
+						<xs:annotation>
+							<xs:documentation>Endereço do tomador</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element nillable="true" name="Endereco" type="TStr500">
+									<xs:annotation>
+										<xs:documentation>Endereço</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element nillable="true" name="Numero" type="TStr10">
+									<xs:annotation>
+										<xs:documentation>Número</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element nillable="true" name="Complemento" type="TStr100">
+									<xs:annotation>
+										<xs:documentation>Complemento</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element nillable="true" name="Bairro" type="TStr65">
+									<xs:annotation>
+										<xs:documentation>Bairro</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element nillable="true" name="Cep" type="TCep">
+									<xs:annotation>
+										<xs:documentation>CEP</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element nillable="true" name="Municipio" type="TStr50">
+									<xs:annotation>
+										<xs:documentation>Município</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element nillable="true" name="Uf" type="TUf">
+									<xs:annotation>
+										<xs:documentation>UF</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element nillable="true" name="Pais" type="TStr50">
+									<xs:annotation>
+										<xs:documentation>País</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element nillable="true" name="Contato">
+						<xs:annotation>
+							<xs:documentation>Contato do tomador</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element nillable="true" name="Telefone" type="TStr35">
+									<xs:annotation>
+										<xs:documentation>Telefone</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element nillable="true" name="Email" type="TStr250">
+									<xs:annotation>
+										<xs:documentation>Email</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element nillable="true" name="Regime" type="XmlNfseRegime">
+						<xs:annotation>
+							<xs:documentation>Regime do tomador – aparece no padrão www.govdigital.com.br</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="CodigoMobiliario" type="TStr20">
+						<xs:annotation>
+							<xs:documentation>Código Contribuinte Mobiliário do tomador</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+		<xs:element nillable="true" name="DadosPrestador">
+			<xs:annotation>
+				<xs:documentation>Dados do prestador de serviço</xs:documentation>
+			</xs:annotation>
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element nillable="true" name="Cpf" type="TCpf">
+						<xs:annotation>
+							<xs:documentation>CPF do prestador (se pessoa física)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="Cnpj" type="TCnpj">
+						<xs:annotation>
+							<xs:documentation>CNPJ do prestador (se pessoa jurídica)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="InscricaoMunicipal" type="TStr20">
+						<xs:annotation>
+							<xs:documentation>Inscrição Municipal do prestador</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="InscricaoEstadual" type="TStr20">
+						<xs:annotation>
+							<xs:documentation>Inscrição Estadual do prestador</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="Nome" type="TStr255">
+						<xs:annotation>
+							<xs:documentation>Nome do prestador</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="RazaoSocial" type="TStr255" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Razão Social do prestador</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="NomeFantasia" type="TStr65">
+						<xs:annotation>
+							<xs:documentation>Nome Fantasia do prestador</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="Endereco">
+						<xs:annotation>
+							<xs:documentation>Endereço do prestador</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element nillable="true" name="Endereco" type="TStr500">
+									<xs:annotation>
+										<xs:documentation>Endereço</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element nillable="true" name="Numero" type="TStr10">
+									<xs:annotation>
+										<xs:documentation>Número</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element nillable="true" name="Complemento" type="TStr100">
+									<xs:annotation>
+										<xs:documentation>Complemento</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element nillable="true" name="Bairro" type="TStr65">
+									<xs:annotation>
+										<xs:documentation>Bairro</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element nillable="true" name="Cep" type="TCep">
+									<xs:annotation>
+										<xs:documentation>CEP</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element nillable="true" name="Municipio" type="TStr50">
+									<xs:annotation>
+										<xs:documentation>Município</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element nillable="true" name="Uf" type="TUf">
+									<xs:annotation>
+										<xs:documentation>UF</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element nillable="true" name="Pais" type="TStr50">
+									<xs:annotation>
+										<xs:documentation>País</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element nillable="true" name="Contato">
+						<xs:annotation>
+							<xs:documentation>Contato do prestador</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element nillable="true" name="Telefone" type="TStr35">
+									<xs:annotation>
+										<xs:documentation>Telefone</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element nillable="true" name="Email" type="TStr250">
+									<xs:annotation>
+										<xs:documentation>Email</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>						
+					</xs:element>
+					<xs:element nillable="true" name="Regime" type="XmlNfseRegime">
+						<xs:annotation>
+							<xs:documentation>Regime do prestador – aparece no padrão www.govdigital.com.br</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="CodigoMobiliario" type="TStr20">
+						<xs:annotation>
+							<xs:documentation>Código Contribuinte Mobiliário do prestador</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>			
+		</xs:element>
+		<xs:element nillable="true" name="DadosIntermediario">
+			<xs:annotation>
+				<xs:documentation>Dados do intermediario do serviço</xs:documentation>
+			</xs:annotation>
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element nillable="true" name="Cpf" type="TCpf">
+						<xs:annotation>
+							<xs:documentation>CPF do Intermediario (se pessoa física)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="Cnpj" type="TCnpj">
+						<xs:annotation>
+							<xs:documentation>CNPJ do Intermediario (se pessoa jurídica)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="InscricaoMunicipal" type="TStr20">
+						<xs:annotation>
+							<xs:documentation>Inscrição Municipal do Intermediario</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="InscricaoEstadual" type="TStr20">
+						<xs:annotation>
+							<xs:documentation>Inscrição Estadual do Intermediario</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="Nome" type="TStr255">
+						<xs:annotation>
+							<xs:documentation>Nome do Intermediario</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="RazaoSocial" type="TStr255">
+						<xs:annotation>
+							<xs:documentation>Razão Social do Intermediario</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="NomeFantasia" type="TStr65">
+						<xs:annotation>
+							<xs:documentation>Nome Fantasia do Intermediario</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="Endereco" type="XmlNfseEndereco">
+						<xs:annotation>
+							<xs:documentation>Endereço do Intermediario</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="Contato">
+						<xs:annotation>
+							<xs:documentation>Contato do Intermediario</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element nillable="true" name="Telefone" type="TStr35">
+									<xs:annotation>
+										<xs:documentation>Telefone</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element nillable="true" name="Email" type="TStr250">
+									<xs:annotation>
+										<xs:documentation>Email</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element nillable="true" name="Regime" type="XmlNfseRegime">
+						<xs:annotation>
+							<xs:documentation>Regime do Intermediario</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="CodigoMobiliario" type="TStr20">
+						<xs:annotation>
+							<xs:documentation>Código Contribuinte Mobiliário do Intermediario</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+		<xs:element nillable="true" name="Itens">
+			<xs:annotation>
+				<xs:documentation>Itens da nota fiscal, normalmente não aparece nas notas fiscais de serviço, porém há exceções, como por exemplo a de Campinas – SP</xs:documentation>
+			</xs:annotation>
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element minOccurs="0" maxOccurs="unbounded" name="Item" nillable="true">
+						<xs:annotation>
+							<xs:documentation>Item da nota fiscal que usa lista de itens</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element nillable="true" name="Descricao" type="TStr3000">
+									<xs:annotation>
+										<xs:documentation>Descrição do Item</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element nillable="true" name="Tributavel" type="XmlNfseSimNao">
+									<xs:annotation>
+										<xs:documentation>O item é tributável?</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element nillable="true" name="Qtde" type="MidasDecimal">
+									<xs:annotation>
+										<xs:documentation>Quantidade</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element nillable="true" name="VlrUnitario" type="MidasDecimal">
+									<xs:annotation>
+										<xs:documentation>Valor unitário do item</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element nillable="true" name="VlrTotal" type="MidasDecimal" minOccurs="1">
+									<xs:annotation>
+										<xs:documentation>Valor total do item</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+		<xs:element nillable="true" name="DiscriminacaoServico" type="TStr3000">
+			<xs:annotation>
+				<xs:documentation>Discriminação do(s) serviço(s) prestado</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="OutrasInformacoes" type="TStr3000">
+			<xs:annotation>
+				<xs:documentation>Outras informações fornecidas pelo emissor da nota fiscal</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="ImpostosRetidos">
+			<xs:annotation>
+				<xs:documentation>Impostos retidos na fonte</xs:documentation>
+			</xs:annotation>
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element nillable="true" name="AlqCsll" type="MidasDecimal">
+						<xs:annotation>
+							<xs:documentation>Alíquota CSLL (Contribuição Social Sobre o Lucro Líquido)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="VlrCsll" type="MidasDecimal">
+						<xs:annotation>
+							<xs:documentation>Valor CSLL</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="AlqCofins" type="MidasDecimal">
+						<xs:annotation>
+							<xs:documentation>Alíquota COFINS (Contribuição para o Financiamento da Seguridade Social)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="VlrCofins" type="MidasDecimal">
+						<xs:annotation>
+							<xs:documentation>Valor COFINS</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="AlqPisPasep" type="MidasDecimal">
+						<xs:annotation>
+							<xs:documentation>Alíquota PIS/Pasep (Programa de Integração Social / Programa de Formação do Patrimônio do Servidor Público)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="VlrPisPasep" type="MidasDecimal">
+						<xs:annotation>
+							<xs:documentation>PIS/Pasep</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="AlqIrrf" type="MidasDecimal">
+						<xs:annotation>
+							<xs:documentation>Alíquota IRRF (Imposto de Renda Retido na Fonte)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="VlrIrrf" type="MidasDecimal">
+						<xs:annotation>
+							<xs:documentation>Valor IRRF</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="AlqIssRetido" type="MidasDecimal">
+						<xs:annotation>
+							<xs:documentation>Alíquota ISS (Imposto Sobre Serviço) Retido</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="VlrIssRetido" type="MidasDecimal">
+						<xs:annotation>
+							<xs:documentation>Valor do ISS Retido</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="AlqInss" type="MidasDecimal">
+						<xs:annotation>
+							<xs:documentation>Alíquota para o INSS (Instituto Nacional do Seguro Social)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="VlrInss" type="MidasDecimal">
+						<xs:annotation>
+							<xs:documentation>Valor para o INSS</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+		<xs:element nillable="true" name="Iss">
+			<xs:annotation>
+				<xs:documentation>O ISS que tem em toda nota fiscal de serviço fica separado pra melhor</xs:documentation>
+			</xs:annotation>
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element nillable="true" name="BaseCalculo" type="MidasDecimal">
+						<xs:annotation>
+							<xs:documentation>Base de cálculo do ISS</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="Aliquota" type="MidasDecimal">
+						<xs:annotation>
+							<xs:documentation>Alíquota do ISS</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="Vlr" type="MidasDecimal">
+						<xs:annotation>
+							<xs:documentation>Valor do ISS devido</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="DtVenc" type="MidasDate">
+						<xs:annotation>
+							<xs:documentation>Data de vencimento do ISS à ser pago</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+		<xs:element nillable="true" name="Rps">
+			<xs:annotation>
+				<xs:documentation>Recibo Provisorio de Servicos</xs:documentation>
+			</xs:annotation>
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element nillable="true" name="Numero" type="TStr20">
+						<xs:annotation>
+							<xs:documentation>Número do recibo</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="Serie" type="TStr10">
+						<xs:annotation>
+							<xs:documentation>Série do recibo</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="Tipo" type="TStr10">
+						<xs:annotation>
+							<xs:documentation>Tipo do recibo</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="DtEmissao" type="MidasDateTime">
+						<xs:annotation>
+							<xs:documentation>Data de emissão do recibo</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+		<xs:element nillable="true" name="ConstrucaoCivil">
+			<xs:annotation>
+				<xs:documentation>Detalhamento específico da construção civil</xs:documentation>
+			</xs:annotation>
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element nillable="true" name="Art" type="TStr20">
+						<xs:annotation>
+							<xs:documentation>Anotacao de Responsabilidade Tecnica</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="CodigoObra" type="TStr20">
+						<xs:annotation>
+							<xs:documentation>Código da Obra</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+		<xs:element nillable="true" name="VlrTotal" type="xs:decimal" minOccurs="1">
+			<xs:annotation>
+				<xs:documentation>Valor total da nota fiscal</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="VlrServicos" type="MidasDecimal">
+			<xs:annotation>
+				<xs:documentation>Valor total dos serviços</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="VlrLiquido" type="MidasDecimal">
+			<xs:annotation>
+				<xs:documentation>Valor líquido da nota fiscal</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="VlrDeducoes" type="MidasDecimal">
+			<xs:annotation>
+				<xs:documentation>Valor das deduções</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="VlrCredito" type="MidasDecimal">
+			<xs:annotation>
+				<xs:documentation>Valor do crédito gerado</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="VlrDesconto" type="MidasDecimal">
+			<xs:annotation>
+				<xs:documentation>Valor do desconto</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="VlrRetencoesFederais" type="MidasDecimal">
+			<xs:annotation>
+				<xs:documentation>Valor das retenções federais</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="VlrOutrasRetencoes" type="MidasDecimal">
+			<xs:annotation>
+				<xs:documentation>Valor de outras retenções</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="DescontoCondicionado" type="MidasDecimal">
+			<xs:annotation>
+				<xs:documentation>Valor do desconto condicionado - Padrão GINFES</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="DescontoIncondicionado" type="MidasDecimal">
+			<xs:annotation>
+				<xs:documentation>Valor do desconto incondicionado - Padrão GINFES</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="MesCompetencia" type="TStr30">
+			<xs:annotation>
+				<xs:documentation>Mes da competencia</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="MunicipioIncidencia" type="TStr50">
+			<xs:annotation>
+				<xs:documentation>Municipio de incidência da nota fiscal</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="Recolhimento" type="TStr65">
+			<xs:annotation>
+				<xs:documentation>Informação de texto sobre o recolhimento de impostos da nota fiscal, em alguns padrões este elemento aparece</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="Tributacao" type="TStr250">
+			<xs:annotation>
+				<xs:documentation>Informação de texto sobre a tributação da nota fiscal, em alguns padrões este elemento aparece</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="CNAE" type="TStr250">
+			<xs:annotation>
+				<xs:documentation>Classificação Nacional de Atividades Econômicas</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="DescricaoAtividade" type="TStr500">
+			<xs:annotation>
+				<xs:documentation>Informação de texto sobre a atividade, em alguns padrões este elemento aparece</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="DescricaoTipoServico" type="TStr3000">
+			<xs:annotation>
+				<xs:documentation>Informação de texto sobre o tipo de serviço, em alguns padrões este elemento aparece</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="LocalPrestacao" type="TStr50">
+			<xs:annotation>
+				<xs:documentation>Local da prestação de serviço</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="NaturezaOperacao" type="TStr100">
+			<xs:annotation>
+				<xs:documentation>Natureza da operação</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="OptanteSimplesNacional" type="XmlNfseSimNao">
+			<xs:annotation>
+				<xs:documentation>O emissor é optante do simples nacional?</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="IncentivadorCultural" type="XmlNfseSimNao">
+			<xs:annotation>
+				<xs:documentation>Serviços que podem ser deduzidas taxa no imposto devido ao incentivo cultural estabelecido pela prefeitura, em alguns padrões este elemento aparece</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="RegimeEspecialTributacao" type="XmlNfseRegimeEspecialTrib">
+			<xs:annotation>
+				<xs:documentation>Pode conter os seguintes valores: “Microempresa Municipal; Estimativa; Sociedade de Profissionais; Cooperativa; Microempresário Individual (MEI); Microempresário e Empresa de Pequeno Porte (ME EPP)” – Padrão GINFES</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="DtPagamento" type="MidasDateTime">
+			<xs:annotation>
+				<xs:documentation>Data de pagamento da nota fiscal</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="NumeroGuia" type="TStr20">
+			<xs:annotation>
+				<xs:documentation>Número da guia</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="ItemListaServico" type="TStr3000">
+			<xs:annotation>
+				<xs:documentation>Específico das prefeituras que tem lista de serviços com um código, o elemento traz o código</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="CodigoTributacaoMunicipio" type="TStr3000">
+			<xs:annotation>
+				<xs:documentation>Específico das prefeituras com código de tributação, o elemento traz o código</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="PedidoCompra">
+			<xs:annotation>
+				<xs:documentation></xs:documentation>
+			</xs:annotation>
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element nillable="true" name="Numero" type="TStr3000">
+						<xs:annotation>
+							<xs:documentation></xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element nillable="true" name="Itens">
+						<xs:annotation>
+							<xs:documentation>Item da nota fiscal que usa lista de itens</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element minOccurs="0" maxOccurs="unbounded" name="Item" nillable="true" type="TStr20">
+									<xs:annotation>
+										<xs:documentation>Codigo do Item</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+		<xs:element nillable="true" name="NfsImagem" type="xs:base64Binary">
+			<xs:annotation>
+				<xs:documentation>Imagem da nota fiscal de serviço em formato base64</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+		<xs:element nillable="true" name="Particularidades" type="TStr3000" />
+	</xs:sequence>
+	<xs:attribute name="versao" type="TStr10" use="required" />
+</xs:element>
+</xs:schema>
