@@ -41,6 +41,17 @@ public class CargaGeralTest extends BaseTests {
 		p.put("nomeArquivo", "tiposComplexos_v1.00.xsd");
 		return p;
 	}
+	
+	private Map<String, Object> bodyTemplate(long id, String nome) {
+        Map<String, Object> b = new HashMap<>();
+        b.put("id", id);                     // precisa bater com o {id} no path
+        b.put("nome", nome);                 // ajuste campos que seu service valida
+        b.put("descricao", "Novo texto");    // exemplo
+        // Se tiver mais campos obrigatórios, inclua-os aqui:
+        // b.put("ativo", true);
+        // b.put("campos", List.of(...));
+        return b;
+    }
 
 	@Test
 	@Order(1)
@@ -521,7 +532,7 @@ public class CargaGeralTest extends BaseTests {
 	}
 	
 	@Test
-	@Order(20)
+	@Order(21)
 	public void deveRetornarTemplateBuscar() {
 
 		String filtro="NFSe";
@@ -540,5 +551,4 @@ public class CargaGeralTest extends BaseTests {
 	}
 	
 	
-
 }
