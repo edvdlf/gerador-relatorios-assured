@@ -1,6 +1,7 @@
 package br.com.vetorit.geradorrelatorio.tests.templaterelatorio;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.notNullValue;
@@ -39,7 +40,7 @@ public class UpdateTest extends BaseTests {
     }
 
 	@Test
-	@Order(20)
+	@Order(1)
 	public void deveRetornarTemplateAgrupadoNFse() {
 
 		String filtro="NFSe";
@@ -58,7 +59,7 @@ public class UpdateTest extends BaseTests {
 	}
 	
 	@Test
-	@Order(21)
+	@Order(2)
 	public void deveRetornarTemplateBuscar() {
 
 		String filtro="NFSe";
@@ -77,32 +78,57 @@ public class UpdateTest extends BaseTests {
 	}
 	
 	@Test
-	@Order(22)
-	void deveAtualizarComSucesso() {
-	    long id = 1;
-	    Map<String, Object> body = new HashMap<>();
-	    body.put("id", id);
-	    body.put("nome", "Relatório Atualizado");
-	    body.put("descricao", "Template atualizado com dois campos de teste");
-	    List<Map<String, Object>> campos = List.of(
-	            Map.of("id", 7),
-	            Map.of("id", 13),
-	            Map.of("id", 18)
-	        );
-	    body.put("campos", campos);
-	    given()
-	        .header("Authorization", "Bearer " + TOKEN_TEMP)
-	        .contentType(ContentType.JSON)
-	        .body(body)
-	    .when()
-	        .put("api/template-relatorio/{id}", id)
-	    .then()
-	        .statusCode(200)
-	        .body("id", equalTo((int) id))
-	        .body("nome", equalTo("Relatório Atualizado"))
-	        .body("$", notNullValue());
-	}
+    @Order(3)
+    @DisplayName("Deve atualizar os campos de um template existente com sucesso (200 OK)")
+    void deveAtualizarCamposComSucesso() {
+        long templateId = 1L;
 
+        String requestBody = """
+            {
+              "id": 1,
+              "camposIds": [10, 11, 12]
+            }
+            """.formatted(templateId);
+
+        given()
+            .header("Authorization", "Bearer " + TOKEN_TEMP) // remova se não precisar de autenticação
+            .contentType(ContentType.JSON)
+            .body(requestBody)
+        .when()
+            .put("/api/template-relatorio/update-campos/{id}", 1)
+        .then()
+            .statusCode(200)
+            .body("id", equalTo((int) templateId))
+            //.body("campos", not(empty())) // valida que retornou lista de campos
+            .body("campos.size()", greaterThan(0))
+            .body("$", notNullValue());
+    }
+
+    @Test
+    @Order(4)
+    @DisplayName("Não deve permitir update com lista de campos vazia (400 BAD REQUEST)")
+    void naoDevePermitirCamposVazios() {
+        long templateId = 1L;
+
+        String requestBody = """
+            {
+              "id": %d,
+              "camposIds": []
+            }
+            """.formatted(templateId);
+
+        given()
+            .header("Authorization", "Bearer " + TOKEN_TEMP)
+            .contentType(ContentType.JSON)
+            .body(requestBody)
+        .when()
+            .put("/api/templates/{id}/updateCampos", templateId)
+        .then()
+            .statusCode(400)
+            .body("message", containsString("deve conter pelo menos um campo"));
+    }
+
+	
 	
 
 }
