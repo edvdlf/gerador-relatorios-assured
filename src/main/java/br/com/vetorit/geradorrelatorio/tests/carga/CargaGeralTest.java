@@ -52,19 +52,20 @@ public class CargaGeralTest extends BaseTests {
         // b.put("campos", List.of(...));
         return b;
     }
-
+	
 	@Test
 	@Order(1)
-	void deveCriarTipoDocumento_NFSe() {
+	void deveCriarTipoDocumento_NFe() {
+		
 		List<Map<String, Object>> colunas = new ArrayList<>(); 
 		List<String> tagsMulti = new ArrayList<>(); 
 
 		Map<String, Object> payload = new LinkedHashMap<>();
 		payload.put("id", 0);
 		payload.put("dataCadastro", "2025-09-11T22:36:33.938Z");
-		payload.put("titulo", "NFSe");
-		payload.put("descricao", "NF Eletrônica de Serviços");
-		payload.put("nomeArquivo", "NFSe_v1.00_ajustado.xsd");
+		payload.put("titulo", "NFe");
+		payload.put("descricao", "Nota Fiscal Eletrônica de Mercadoria");
+		payload.put("nomeArquivo", "nfe_v4.00_ajustado.xsd");
 		payload.put("ativo", false);
 		payload.put("colunas", colunas); 
 		payload.put("tagsMultiOcorrs", ""); 
@@ -74,10 +75,9 @@ public class CargaGeralTest extends BaseTests {
 		given().contentType(ContentType.JSON).accept(ContentType.JSON)
 				.header("Authorization", "Bearer " + TOKEN_TEMP_ADMIN).body(payload).log().all().when()
 				.post("/api/tipo-documento").then().log().all().statusCode(200)
-				// asserções básicas úteis (ajuste conforme seu response)
-				.body("id", notNullValue()).body("titulo", equalTo("NFSe")).body("ativo", equalTo(true));
+				.body("id", notNullValue()).body("titulo", equalTo("NFe")).body("ativo", equalTo(true));
 	}
-
+	
 	@Test
 	@Order(2)
 	void deveCriarTipoDocumento_CTe() {
@@ -102,20 +102,21 @@ public class CargaGeralTest extends BaseTests {
 				.post("/api/tipo-documento").then().log().all().statusCode(200)
 				.body("id", notNullValue()).body("titulo", equalTo("CTe")).body("ativo", equalTo(true));
 	}
+	
+	
 
 	@Test
 	@Order(3)
-	void deveCriarTipoDocumento_NFe() {
-		
+	void deveCriarTipoDocumento_NFSe() {
 		List<Map<String, Object>> colunas = new ArrayList<>(); 
 		List<String> tagsMulti = new ArrayList<>(); 
 
 		Map<String, Object> payload = new LinkedHashMap<>();
 		payload.put("id", 0);
 		payload.put("dataCadastro", "2025-09-11T22:36:33.938Z");
-		payload.put("titulo", "NFe");
-		payload.put("descricao", "Nota Fiscal Eletrônica de Mercadoria");
-		payload.put("nomeArquivo", "nfe_v4.00_ajustado.xsd");
+		payload.put("titulo", "NFSe");
+		payload.put("descricao", "NF Eletrônica de Serviços");
+		payload.put("nomeArquivo", "NFSe_v1.00_ajustado.xsd");
 		payload.put("ativo", false);
 		payload.put("colunas", colunas); 
 		payload.put("tagsMultiOcorrs", ""); 
@@ -125,12 +126,17 @@ public class CargaGeralTest extends BaseTests {
 		given().contentType(ContentType.JSON).accept(ContentType.JSON)
 				.header("Authorization", "Bearer " + TOKEN_TEMP_ADMIN).body(payload).log().all().when()
 				.post("/api/tipo-documento").then().log().all().statusCode(200)
-				.body("id", notNullValue()).body("titulo", equalTo("NFe")).body("ativo", equalTo(true));
+				// asserções básicas úteis (ajuste conforme seu response)
+				.body("id", notNullValue()).body("titulo", equalTo("NFSe")).body("ativo", equalTo(true));
 	}
+
+	
+
+	
 
 	@Test
 	@Order(4)
-	void deveCriarTipoDocumento_NFE() {
+	void deveCriarTipoDocumento_NFE_4() {
 		
 		List<Map<String, Object>> colunas = new ArrayList<>(); 
 		List<String> tagsMulti = new ArrayList<>(); 
@@ -138,7 +144,7 @@ public class CargaGeralTest extends BaseTests {
 		Map<String, Object> payload = new LinkedHashMap<>();
 		payload.put("id", 0);
 		payload.put("dataCadastro", "2025-09-11T22:36:33.938Z");
-		payload.put("titulo", "NFe v4.00");
+		payload.put("titulo", "NFe_v4.00");
 		payload.put("descricao", "Nota Fiscal Eletronica Layout 4.00");
 		payload.put("nomeArquivo", "nfe_v4.00_ajustado.xsd");
 		payload.put("ativo", false);
@@ -151,7 +157,7 @@ public class CargaGeralTest extends BaseTests {
 				.header("Authorization", "Bearer " + TOKEN_TEMP_ADMIN).body(payload).log().all().when()
 				.post("/api/tipo-documento").then().log().all().statusCode(200)
 				
-				.body("id", notNullValue()).body("titulo", equalTo("NFe v4.00")).body("ativo", equalTo(true));
+				.body("id", notNullValue()).body("titulo", equalTo("NFe_v4.00")).body("ativo", equalTo(true));
 	}
 
 	@Test
@@ -210,8 +216,8 @@ public class CargaGeralTest extends BaseTests {
 	@Test
 	@Order(7)
 	@DisplayName("Deve realizar upload de arquivo XSD com sucesso")
-	void deveFazerUpload_NFSe_v1_ajustado() {
-		File file = new File("src\\main\\resources\\PL_010b_NT2025_002_v1.21\\NFSe_v1.00_ajustado.xsd");
+	void deveFazerUpload_NFe() {
+		File file = new File("src\\main\\resources\\ARQ_XSD\\nfe_v4.00_ajustado.xsd");
 		if (!file.exists()) {
 			throw new RuntimeException("Arquivo de teste não encontrado: " + file.getAbsolutePath());
 		}
@@ -226,7 +232,7 @@ public class CargaGeralTest extends BaseTests {
 	@Order(8)
 	@DisplayName("Deve realizar upload de arquivo XSD com sucesso")
 	void deveFazerUpload_CTe_v4_ajustado() {
-		File file = new File("src\\main\\resources\\PL_010b_NT2025_002_v1.21\\cte_v4.00_ajustado.xsd");
+		File file = new File("src\\main\\resources\\ARQ_XSD\\cte_v4.00_ajustado.xsd");
 		if (!file.exists()) {
 			throw new RuntimeException("Arquivo de teste não encontrado: " + file.getAbsolutePath());
 		}
@@ -240,8 +246,8 @@ public class CargaGeralTest extends BaseTests {
 	@Test
 	@Order(9)
 	@DisplayName("Deve realizar upload de arquivo XSD com sucesso")
-	void deveFazerUpload_NFe_v4_ajustado() {
-		File file = new File("src\\main\\resources\\PL_010b_NT2025_002_v1.21\\nfe_v4.00_ajustado.xsd");
+	void deveFazerUpload_NFSe_v1_ajustado() {
+		File file = new File("src\\main\\resources\\ARQ_XSD\\NFSe_v1.00_ajustado.xsd");
 		if (!file.exists()) {
 			throw new RuntimeException("Arquivo de teste não encontrado: " + file.getAbsolutePath());
 		}
@@ -254,6 +260,21 @@ public class CargaGeralTest extends BaseTests {
 	
 	@Test
 	@Order(10)
+	@DisplayName("Deve realizar upload de arquivo XSD com sucesso")
+	void deveFazerUpload_NFe_v4_ajustado() {
+		File file = new File("src\\main\\resources\\ARQ_XSD\\nfe_v4.00_ajustado.xsd");
+		if (!file.exists()) {
+			throw new RuntimeException("Arquivo de teste não encontrado: " + file.getAbsolutePath());
+		}
+
+		given().header("Authorization", "Bearer " + TOKEN_TEMP_ADMIN).contentType("multipart/form-data")
+				.multiPart("file", file).when().post("/api/tipo-documento/upload/{id}", 4).then().log()
+				.ifValidationFails().statusCode(200).contentType(ContentType.JSON).body("id", notNullValue());
+
+	}
+	
+	@Test
+	@Order(11)
 	public void deveRetornarTiposDocumentoById() {
 
 		given()
@@ -270,7 +291,7 @@ public class CargaGeralTest extends BaseTests {
 	}
 	
 	@Test
-	@Order(11)
+	@Order(12)
 	public void deveRetornarTiposDocumentoComDefinicaoColuna() {
 
 		given()
@@ -287,7 +308,7 @@ public class CargaGeralTest extends BaseTests {
 	}
 	
 	@Test
-	@Order(12)
+	@Order(13)
 	public void deveRetornarTiposDocumentoAtivo() {
 
 		given()
@@ -304,7 +325,7 @@ public class CargaGeralTest extends BaseTests {
 	}
 	
 	@Test
-	@Order(13)
+	@Order(14)
 	public void deveRetornarAcompanhamentoStatus() {
 
 		given()
@@ -321,7 +342,7 @@ public class CargaGeralTest extends BaseTests {
 	}
 	
 	@Test
-	@Order(14)
+	@Order(15)
 	public void deveRetornarAcompanhamentoStatusUltimaAtualizacao() {
 
 		given()
@@ -338,8 +359,8 @@ public class CargaGeralTest extends BaseTests {
 	}
 	
 	@Test
-	@Order(15)
-	void deveCriarTemplateRelatorioTipoDocumentoNFSe() {
+	@Order(16)
+	void deveCriarTemplateRelatorioTipoDocumento_NFe() {
 	    Map<String, Object> tipoDocumento = new LinkedHashMap<>();
 	    tipoDocumento.put("id", 1);
 	    
@@ -348,10 +369,10 @@ public class CargaGeralTest extends BaseTests {
 	            Map.of("id", 13),
 	            Map.of("id", 18)
 	        );
-
+	    
 	    Map<String, Object> payload = new LinkedHashMap<>();
-	    payload.put("nome", "Template-Nfse");
-	    payload.put("descricao", "Template de teste para Nfse");
+	    payload.put("nome", "Template Nfe");
+	    payload.put("descricao", "Template de teste para Nfe");
 	    payload.put("tipoDocumento", tipoDocumento);
 	    payload.put("campos", campos); // []
 	    
@@ -366,12 +387,12 @@ public class CargaGeralTest extends BaseTests {
 	    .then()
 	        .log().all()
 	        .statusCode(200)
-	        .body("nome", equalTo("Template-Nfse"))
+	        .body("nome", equalTo("Template Nfe"))
 	        .body("tipoDocumento.id", equalTo(1));
 	}
 	
 	@Test
-	@Order(16)
+	@Order(17)
 	void deveCriarTemplateRelatorioTipoDocumentoCTE() {
 	    Map<String, Object> tipoDocumento = new LinkedHashMap<>();
 	    tipoDocumento.put("id", 2);
@@ -411,7 +432,7 @@ public class CargaGeralTest extends BaseTests {
 	
 	
 	@Test
-	@Order(15)
+	@Order(18)
 	public void deveRetornarRequisicaoRelatorioTipoDocumento() {
 
 		given()
@@ -428,7 +449,7 @@ public class CargaGeralTest extends BaseTests {
 	}
 	
 	@Test
-	@Order(16)
+	@Order(19)
 	public void deveRetornarRequisicaoRelatorioTemplateRelatorio() {
 
 		given()
@@ -445,7 +466,7 @@ public class CargaGeralTest extends BaseTests {
 	}
 	
 	@Test
-	@Order(17)
+	@Order(20)
 	public void deveRetornarRequisicaoFonteDadosRelatorio() {
 
 		given()
@@ -462,7 +483,7 @@ public class CargaGeralTest extends BaseTests {
 	}
 	
 	@Test
-	@Order(18)
+	@Order(21)
 	public void deveRetornarDashboard() {
 
 		given()
@@ -479,7 +500,7 @@ public class CargaGeralTest extends BaseTests {
 	}
 	
 	@Test
-	@Order(19)
+	@Order(22)
 	public void deveRetornarTemplateRelatorio() {
 
 		given()
@@ -496,7 +517,7 @@ public class CargaGeralTest extends BaseTests {
 	}
 	
 	@Test
-	@Order(19)
+	@Order(23)
 	public void deveRetornarTemplateRelatorioIdCampos() {
 
 		given()
@@ -513,27 +534,28 @@ public class CargaGeralTest extends BaseTests {
 	}
 	
 	@Test
-	@Order(20)
-	public void deveRetornarTemplateAgrupadoNFse() {
+	@Order(24)
+	public void deveRetornarTemplatePrefixo_NFe() {
 
-		String filtro="NFSe";
+		String filtro="NFe";
 		
 		given()
 		.log()
 		.all()
 		.header("Authorization", "Bearer " + TOKEN_TEMP).accept(ContentType.JSON).when()
-		.get("/api/template-relatorio/campos/agrupado?texto=" + filtro)
+		.get("/api/template-relatorio/filtro/prefixo?texto=" + filtro)
 		.then()
 		.log()
 		.all()
 		.statusCode(200)
+		.body("size()", equalTo(1512));
 		
-		;
+		
 	}
 	
 	@Test
-	@Order(21)
-	public void deveRetornarTemplateBuscar() {
+	@Order(24)
+	public void deveRetornarTemplatePrefixo_NFSe() {
 
 		String filtro="NFSe";
 		
@@ -541,14 +563,36 @@ public class CargaGeralTest extends BaseTests {
 		.log()
 		.all()
 		.header("Authorization", "Bearer " + TOKEN_TEMP).accept(ContentType.JSON).when()
-		.get("/api/template-relatorio/buscar?texto=NFSe")
+		.get("/api/template-relatorio/filtro/prefixo?texto=" + filtro)
 		.then()
 		.log()
 		.all()
 		.statusCode(200)
+		.body("size()", equalTo(202));
 		
-		;
+		
 	}
+	@Test
+	@Order(24)
+	public void deveRetornarTemplatePrefixo_CTe() {
+
+		String filtro="CTe";
+		
+		given()
+		.log()
+		.all()
+		.header("Authorization", "Bearer " + TOKEN_TEMP).accept(ContentType.JSON).when()
+		.get("/api/template-relatorio/filtro/prefixo?texto=" + filtro)
+		.then()
+		.log()
+		.all()
+		.statusCode(200)
+		.body("size()", equalTo(319));
+		
+		
+	}
+	
+	
 	
 	
 }

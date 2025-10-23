@@ -28,17 +28,7 @@ import io.restassured.http.ContentType;
 public class UpdateTest extends BaseTests {
 
 	
-	private Map<String, Object> bodyTemplate(long id, String nome) {
-        Map<String, Object> b = new HashMap<>();
-        b.put("id", id);                     // precisa bater com o {id} no path
-        b.put("nome", nome);                 // ajuste campos que seu service valida
-        b.put("descricao", "Novo texto");    // exemplo
-        // Se tiver mais campos obrigatórios, inclua-os aqui:
-        // b.put("ativo", true);
-        // b.put("campos", List.of(...));
-        return b;
-    }
-
+	
 	@Test
 	@Order(1)
 	public void deveRetornarTemplateAgrupadoNFse() {
